@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -15,9 +16,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Button
@@ -118,6 +122,10 @@ fun BasicComponentsScreen( modifier: Modifier = Modifier) {
 
     var corFundo by remember {
         mutableStateOf(Color(239, 247, 207))
+    }
+
+    var favorito by remember {
+        mutableStateOf(false)
     }
 
     Column(
@@ -340,6 +348,38 @@ fun BasicComponentsScreen( modifier: Modifier = Modifier) {
                 Text(text = "Voltar fundo")
             }
         }
+
+        Spacer(modifier = Modifier.height(24.dp))
+
+//          Condição ternária (if else) em imagem           //
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center
+        ) {
+            if (favorito) {
+                Icon(
+                    modifier = Modifier
+                        .size(40.dp)
+//                        efeito ao clicar na imagem
+                        .clickable {
+                            favorito = false    // Troca o valor da variável favorito para false
+                        },
+                    imageVector = Icons.Default.Favorite,
+                    contentDescription = "Favorite Icon"
+                )
+            } else {
+                Icon(
+                    modifier = Modifier
+                        .size(40.dp)
+                        .clickable {
+                            favorito = true // Troca o valor da variável favorito para true
+                        },
+                    imageVector = Icons.Default.FavoriteBorder,
+                    contentDescription = "Favorite Border Icon"
+                )
+            }
+        }
+//====================================================/====================================================//
 
     }
 }
